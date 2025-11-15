@@ -71,9 +71,9 @@ class DataAnalysisRequest(BaseModel):
 async def home(request: Request):
     """Serve the main portal page."""
     return templates.TemplateResponse(
-        "index.html",
-        {
-            "request": request,
+        request=request,
+        name="index.html",
+        context={
             "app_name": settings.app_name,
             "app_version": settings.app_version
         }
