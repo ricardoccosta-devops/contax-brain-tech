@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  ebrain-tech:
+    build: .
+    container_name: ebrain-tech-portal
+    ports:
+      - "8501:8501"
+    environment:
+      # OpenAI
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o}
+      
+      # Anthropic
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - ANTHROPIC_MODEL=${ANTHROPIC_MODEL:-claude-3-5-sonnet-20241022}
+      
+      # Meta
+      - META_API_KEY=${META_API_KEY}
+      - META_MODEL=${META_MODEL:-llama-3.1-70b}
+      
+      # Ollama
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://localhost:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llama3.1}
+      
+      # AWS Bedrock
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+      - AWS_BEDROCK_MODEL=${AWS_BEDROCK_MODEL:-anthropic.claude-3-5-sonnet-20240620-v1:0}
+      
+      # Google
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - GOOGLE_MODEL=${GOOGLE_MODEL:-gemini-1.5-pro}
+      
+      # Configurações gerais
+      - MAX_HISTORY=${MAX_HISTORY:-90}
+      - MAX_CONTEXT_MESSAGES=${MAX_CONTEXT_MESSAGES:-50}
+      - DB_PATH=${DB_PATH:-history.db}
+    volumes:
+      - ./history.db:/app/history.db
+      - ./.streamlit:/app/.streamlit
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
