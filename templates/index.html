@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app_name }} - Portal Inteligente com IA</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 {{ app_name }}</h1>
+            <p class="subtitle">Portal Inteligente com Integração LLM</p>
+            <p class="version">Versão {{ app_version }}</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('chat')">💬 Chat Geral</button>
+            <button class="tab-button" onclick="openTab('document')">📄 Análise de Documentos</button>
+            <button class="tab-button" onclick="openTab('code-gen')">⚙️ Geração de Código</button>
+            <button class="tab-button" onclick="openTab('code-review')">🔍 Revisão de Código</button>
+            <button class="tab-button" onclick="openTab('data')">📊 Análise de Dados</button>
+        </div>
+
+        <!-- Chat Tab -->
+        <div id="chat" class="tab-content active">
+            <h2>Assistente de Chat</h2>
+            <div class="chat-container">
+                <div id="chat-messages" class="messages"></div>
+                <div class="input-group">
+                    <textarea id="chat-input" placeholder="Digite sua mensagem..."></textarea>
+                    <button onclick="sendChatMessage()">Enviar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Document Analysis Tab -->
+        <div id="document" class="tab-content">
+            <h2>Análise de Documentos</h2>
+            <div class="form-group">
+                <label for="doc-text">Texto do Documento:</label>
+                <textarea id="doc-text" rows="10" placeholder="Cole o texto do documento aqui..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="doc-query">Pergunta sobre o documento:</label>
+                <input type="text" id="doc-query" placeholder="O que você quer saber sobre o documento?">
+            </div>
+            <button onclick="analyzeDocument()">Analisar</button>
+            <div id="doc-result" class="result"></div>
+        </div>
+
+        <!-- Code Generation Tab -->
+        <div id="code-gen" class="tab-content">
+            <h2>Geração de Código</h2>
+            <div class="form-group">
+                <label for="code-desc">Descrição do que o código deve fazer:</label>
+                <textarea id="code-desc" rows="5" placeholder="Descreva o que você precisa..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="code-lang">Linguagem:</label>
+                <select id="code-lang">
+                    <option value="python">Python</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="java">Java</option>
+                    <option value="csharp">C#</option>
+                    <option value="go">Go</option>
+                    <option value="rust">Rust</option>
+                </select>
+            </div>
+            <button onclick="generateCode()">Gerar Código</button>
+            <div id="code-gen-result" class="result code-block"></div>
+        </div>
+
+        <!-- Code Review Tab -->
+        <div id="code-review" class="tab-content">
+            <h2>Revisão de Código</h2>
+            <div class="form-group">
+                <label for="review-lang">Linguagem:</label>
+                <select id="review-lang">
+                    <option value="python">Python</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="java">Java</option>
+                    <option value="csharp">C#</option>
+                    <option value="go">Go</option>
+                    <option value="rust">Rust</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="review-code">Código para revisar:</label>
+                <textarea id="review-code" rows="15" placeholder="Cole o código aqui..."></textarea>
+            </div>
+            <button onclick="reviewCode()">Revisar Código</button>
+            <div id="code-review-result" class="result"></div>
+        </div>
+
+        <!-- Data Analysis Tab -->
+        <div id="data" class="tab-content">
+            <h2>Análise de Dados</h2>
+            <div class="form-group">
+                <label for="data-input">Dados (CSV, JSON ou texto):</label>
+                <textarea id="data-input" rows="10" placeholder="Cole seus dados aqui..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="data-query">Análise solicitada:</label>
+                <input type="text" id="data-query" placeholder="O que você quer analisar?">
+            </div>
+            <button onclick="analyzeData()">Analisar Dados</button>
+            <div id="data-result" class="result"></div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Contax Brain.tech - Powered by AI</p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
